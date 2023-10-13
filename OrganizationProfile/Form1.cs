@@ -13,6 +13,7 @@ namespace OrganizationProfile
 {
     public partial class frmRegister : Form
     {
+        StudentInformationClass sc = new StudentInformationClass();
         public frmRegister()
         {
             InitializeComponent(); 
@@ -80,15 +81,14 @@ namespace OrganizationProfile
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            StudentInformationClass.SetFullName = FullName(txtLastName.Text,
-                                    txtFirstName.Text, txtMiddleInitial.Text);
-            StudentInformationClass.SetStudentNo = StudentNumber(txtStudentNo.Text);
-            StudentInformationClass.SetProgram = cbPrograms.Text;
+            sc.SetFullname = FullName(txtLastName.Text, txtFirstName.Text, txtMiddleInitial.Text);
+            sc.SetStudentNo = StudentNumber(txtStudentNo.Text);
+            sc.SetProgram = cbPrograms.Text;
 
-            StudentInformationClass.SetGender = cbGender.Text;
-            StudentInformationClass.SetContactNo = ContactNo(txtContactNo.Text);
-            StudentInformationClass.SetAge = Age(txtAge.Text);
-            StudentInformationClass.SetBirthDay = datePickerBirthday.Value.ToString("yyyyMM-dd");
+            sc.SetGender = cbGender.Text;
+            sc.SetContactNo = ContactNo(txtContactNo.Text);
+            sc.SetAge = Age(txtAge.Text);
+            sc.SetBirthday = datePickerBirthday.Value.ToString("yyyyMM-dd");
 
             frmConfirmation frm = new frmConfirmation();
             frm.ShowDialog();

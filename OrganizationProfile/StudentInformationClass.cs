@@ -8,12 +8,13 @@ namespace OrganizationProfile
 {
     internal class StudentInformationClass
     {
-        public string SetProgram = " ";
-        public string SetGender = " ";
-        public string SetBirthday = " ";
-        public string SetFullname = " ";
+        public  string SetProgram = " ";
+        public  string SetGender = " ";
+        public  string SetBirthday = " ";
+        public  string SetFullname = " ";
 
-        public int SetStudentNo = 0;
-        public int ContactNo = 0;
+        public  long SetStudentNo = 0;
+        public long SetContactNo = 0;
+        public int SetAge = 0;
     }
 }
