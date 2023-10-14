@@ -40,6 +40,10 @@ namespace OrganizationProfile
             {
                 MessageBox.Show(fe.Message);
             }
+            finally 
+            {
+                MessageBox.Show("Please input Student Number");
+            }
             return _StudentNo;
         }
 
