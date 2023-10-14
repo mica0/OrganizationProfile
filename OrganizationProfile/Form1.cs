@@ -25,8 +25,21 @@ namespace OrganizationProfile
 
     public long StudentNumber(string studNum)
     {
-            _StudentNo = long.Parse(studNum);
-            
+            try
+            {
+                if (string.IsNullOrEmpty(studNum))
+                {
+                    _StudentNo = long.Parse(studNum);
+                }
+                else
+                {
+                    throw new FormatException("Incorrect Input, please try again!");
+                }
+            }
+            catch (FormatException fe)
+            {
+                MessageBox.Show(fe.Message);
+            }
             return _StudentNo;
         }
 
