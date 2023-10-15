@@ -19,7 +19,8 @@ namespace OrganizationProfile
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            
+            MessageBox.Show("Registration submitted successfully!");
+            this.Close();
         }
 
         private void frmConfirmation_Load(object sender, EventArgs e)
