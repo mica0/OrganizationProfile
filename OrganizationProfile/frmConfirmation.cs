@@ -19,7 +19,7 @@ namespace OrganizationProfile
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Registration submitted successfully!");
+            MessageBox.Show("Submission Successful.");
             this.Close();
         }
 

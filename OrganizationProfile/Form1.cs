@@ -13,15 +13,14 @@ namespace OrganizationProfile
 {
     public partial class frmRegister : Form
     {
-        public frmRegister()
-        {
-            InitializeComponent(); 
-        }
-        
         private string _FullName;
         private int _Age;
         private long _ContactNo;
         private long _StudentNo;
+        public frmRegister()
+        {
+            InitializeComponent(); 
+        }
         private void frmRegister_Load(object sender, EventArgs e)
         {
             string[] ListofProgram = new string[]
@@ -53,94 +52,104 @@ namespace OrganizationProfile
 
         public long StudentNumber(string studNum)
         {
-            if (string.IsNullOrEmpty(txtStudentNo.Text))
-            {
-                _StudentNo = long.Parse(studNum);
-            }
-            else
-            {
-                throw new FormatException();
-            }
+            _StudentNo = long.Parse(studNum);
             return _StudentNo;
         }
 
         public long ContactNo(string Contact)
         {
-            if (Regex.IsMatch(Contact, @"^[0-9]{10,11}$"))
+            try
             {
-                _ContactNo = long.Parse(Contact);
+                if (Regex.IsMatch(Contact, @"^[0-9]{10,11}$"))
+                {
+                    _ContactNo = long.Parse(Contact);
+                }
+                else
+                {
+                    throw new IndexOutOfRangeException("Invalid contact number format. Please input 11 digits only!");
+                }
             }
-            else
+            catch (Exception ie)
             {
-                throw new IndexOutOfRangeException();
+                MessageBox.Show("Message: " + ie);
             }
             return _ContactNo;
         }
 
         public string FullName(string LastName, string FirstName, string MiddleInitial)
         {
-            if (Regex.IsMatch(LastName, @"^[a-zA-Z]+$") || Regex.IsMatch(FirstName, @"^[a-zA-Z]+$") || Regex.IsMatch(MiddleInitial, @"^[a-zA-Z]+$"))
+            try
             {
-                _FullName = LastName + " " + FirstName + ", " + MiddleInitial + ".";
+                if (Regex.IsMatch(LastName, @"^[a-zA-Z]+$") || Regex.IsMatch(FirstName, @"^[a-zA-Z]+$") || Regex.IsMatch(MiddleInitial, @"^[a-zA-Z]+$"))
+                {
+                    _FullName = LastName + " " + FirstName + ", " + MiddleInitial + ".";
+                }
+                else
+                {
+                    throw new ArgumentNullException("Full name cannot be null! ");
+                }
             }
-            else
+            catch (Exception ae)
             {
-                throw new ArgumentNullException();
+                MessageBox.Show("Message: " + ae);
             }
-            
             return _FullName;
         }
-       
+
         public int Age(string age)
         {
-            if (Regex.IsMatch(age, @"^[0-9]{1,3}$"))
+            try
             {
-                _Age = Int32.Parse(age);
+
+                if (Regex.IsMatch(age, @"^[0-9]{1,3}$"))
+                {
+                    _Age = Int32.Parse(age);
+                }
+                else
+                {
+                    throw new OverflowException("Please input your real age!");
+                }
             }
-            else
+            catch (Exception oe)
             {
-                throw new OverflowException();
+                MessageBox.Show("Message: " + oe);
             }
             return _Age;
+
         }
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
             try
             {
+                if (string.IsNullOrEmpty(txtStudentNo.Text))
+
+                {
+                    throw new FormatException();
+                }
+                else
+                {
 
                     StudentInformationClass.SetFullname = FullName(txtLastName.Text, txtFirstName.Text, txtMiddleInitial.Text);
-                    StudentInformationClass.SetStudentNo = Convert.ToInt32(StudentNumber(txtStudentNo.Text));
+                    StudentInformationClass.SetStudentNo = StudentNumber(txtStudentNo.Text);
                     StudentInformationClass.SetProgram = cbPrograms.Text;
 
                     StudentInformationClass.SetGender = cbGender.Text;
-                    StudentInformationClass.SetContactNo = Convert.ToInt32(ContactNo(txtContactNo.Text));
+                    StudentInformationClass.SetContactNo = ContactNo(txtContactNo.Text);
                     StudentInformationClass.SetAge = Age(txtAge.Text);
                     StudentInformationClass.SetBirthday = datePickerBirthday.Value.ToString("yyyy - MM - dd");
-
+                }
             }
-            catch (FormatException)//student num
+            catch (FormatException fe)
             {
-                MessageBox.Show("Incorrect input, please try again!");
+                MessageBox.Show("Message: " + fe);
             }
-            catch (IndexOutOfRangeException)//contact
-            {
-                MessageBox.Show("Index is out of  range.", "Invalid input, please input 11 digit only.");
-            }
-            catch (ArgumentNullException)//fullname
-            {
-                MessageBox.Show("Please full in the detials needed");
-            }
-            catch (OverflowException) //age
-            {
-                MessageBox.Show("Invalid input.","Please enter your true age!" );
-            }
-            finally 
+            finally
             {
                 frmConfirmation frm = new frmConfirmation();
                 frm.ShowDialog();
             }
-            
+
         }
     }
 }
